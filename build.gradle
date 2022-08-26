@@ -1,0 +1,64 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.5'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'parent-gradle' version '4.0.1'
+	id 'com.diffplug.gradle.spotless' version '4.5.1'
+	id 'com.github.sherter.google-java-format' version '0.9'
+	id 'jacoco'
+}
+
+parentGradle {
+	docker {
+		imagePrefix = 'dfd'
+		maintainer = 'Akshay Suresh <akssuresh@deloitte.com>'
+	}
+	artifactory {
+		dependencyRepository = 'ch-ccl-gradle-libs-release'
+		publishRepository = 'ch-ccl-gradle-libs-scratch'
+	}
+	sonarqube {
+		sources = 'src/main/java'
+		property "sonar.coverage.jacoco.xmlReportPaths", "build/jacoco/test/jacocoTestReport.xml"
+		property 'sonar.coverage.exclusions', "src/test, **/com/dfd/orchestrator/configuration/**, **/com/dfd/orchestrator/dto/**, **/com/dfd/orchestrator/utils/**, **/com/dfd/orchestrator/clients/**,**/com/dfd/orchestrator/exception/**, **/com/dfd/orchestrator/OrchestratorApplication.java "
+		property("sonar.projectKey", "ch-ccl__DFD_Orchestrator")
+		property("sonar.projectName", "ch-ccl__DFD_Orchestrator")
+	}
+}
+
+group = "${parentGradle.docker.imagePrefix}"
+version = System.getenv().containsKey("FULL_VERSION") ? System.getenv("FULL_VERSION") : "0.1"
+sourceCompatibility = "11"
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+ext {
+	set('springCloudVersion', "2021.0.0")
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	compile 'io.jsonwebtoken:jjwt-api:0.11.5'
+	runtime 'io.jsonwebtoken:jjwt-impl:0.11.5',
+			// Uncomment the next line if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms:
+			//'org.bouncycastle:bcprov-jdk15on:1.70',
+			'io.jsonwebtoken:jjwt-jackson:0.11.5'
+	implementation 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+targetCompatibility = JavaVersion.VERSION_11

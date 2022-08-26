@@ -1,0 +1,64 @@
+curl --location --request POST 'https://apidfddev.chcareclarity.com/v1/profile/addMember'--header 'API-KEY: efc5ddff-1c5f-40f9-a7d1-78a57babcad0'--header 'Content-Type: application/json'--header 'Cookie: JSESSIONID=3D90831D8CAC31615A2370CC4DE83AA4'--data-raw '{
+    "email": "shivan22503@gmail.com",
+    "userDetail": {
+        "namePrefix": "Ms.",
+        "firstName": "Shivani",
+        "nameSuffix": "",
+        "lastName": "Gupta",
+        "status": "Active",
+        "photo": "kbdsbdksdbadscsmncakjd",
+        "age": "24",
+        "dateOfBirth": "1997-12-20",
+        "gender": "Female",
+        "race": "Hindu",
+        "employmentStatus": "Working",
+        "incomeGroup": "20-25",
+        "contact": {
+            "email": "shivan22504@gmail.com",
+            "phoneNumber": "9842942980",-
+            "phoneType": "Home"
+        },
+        "communicationPreference": [
+            "Phone"
+        ],
+        "role": "user"
+    },
+    "address": {
+        "addressLine1": "Banglr",
+        "addressLine2": "bglr",
+        "city": "banglore",
+        "state": "Karnataka",
+        "postalCode": "23126",
+        "country": "India"
+    },
+    "existingPayerName": "Oak health",
+    "registrationDate": "1997-12-20",
+    "healthDetails": {
+        "allergies": [
+            "Dust"
+        ],
+        "devices": [
+            "None"
+        ],
+        "ongoingHealthConditions": [
+            "None"
+        ],
+        "physicalActivity": "Gym",
+        "medicalProcedureHistory": [
+            {
+                "procedure": "None",
+                "cptCode": "None"
+            }
+        ],
+        "familyMedicalHistory": [
+            "None"
+        ],
+        "socialHistory": {
+            "smoking": "2%",
+            "alcohol": "50%",
+            "drug": [
+                "None"
+            ]
+        }
+    }
+}

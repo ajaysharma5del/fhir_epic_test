@@ -1,0 +1,27 @@
+pluginManagement {
+    repositories {
+        maven {
+            url "https://art.tools.deloitteinnovation.us/artifactory/ch-ccl-gradle-plugins-release"
+            credentials {
+                username System.getenv("ARTIFACTORY_USERNAME")
+                password System.getenv("ARTIFACTORY_PASSWORD")
+
+                if(username == null || password == null )
+                {
+                    File file = new File("gradle.properties")
+                    if (file.exists() && !ARTIFACTORY_USERNAME.isEmpty() && !ARTIFACTORY_PASSWORD.isEmpty())
+                    {
+                        username ARTIFACTORY_USERNAME
+                        password ARTIFACTORY_PASSWORD
+                    }
+                    else
+                        println("Set gradle properties")
+                }
+            }
+            authentication {
+                basic(BasicAuthentication)
+            }
+        }
+    }
+}
+rootProject.name = 'EpicFhir'
